@@ -1,0 +1,19 @@
+from itertools import permutations
+
+def solve_cryptarithmetic(puzzle):
+    letters = set(char for char in puzzle if char.isalpha())
+    for perm in permutations(range(10), len(letters)):
+        digit_map = dict(zip(letters, perm))
+        numeric_puzzle = ''.join(str(digit_map[char]) if char.isalpha() else char for char in puzzle)
+        if numeric_puzzle[0] != '0':
+            if eval(numeric_puzzle):
+                return digit_map    
+    return None
+puzzle = "SEND + MORE == MONEY"
+solution = solve_cryptarithmetic(puzzle)
+if solution:
+    print("Solution found:")
+    for letter, digit in solution.items():
+        print(f"{letter}: {digit}")
+else:
+    print("No solution found for the given puzzle.")
