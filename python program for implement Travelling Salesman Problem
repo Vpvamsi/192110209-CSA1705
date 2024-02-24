@@ -1,0 +1,42 @@
+import sys
+
+class TSP:
+    def __init__(self, num_cities, distances):
+        self.num_cities = num_cities
+        self.distances = distances
+    def nearest_neighbor(self):
+        visited = [False] * self.num_cities
+        path = []
+        current_city = 0  # Start from city 0
+        total_distance = 0
+        for _ in range(self.num_cities - 1):
+            next_city = self.find_nearest_neighbor(current_city, visited)
+            path.append((current_city, next_city))
+            total_distance += self.distances[current_city][next_city]
+            visited[current_city] = True
+            current_city = next_city
+        path.append((current_city, 0))
+        total_distance += self.distances[current_city][0]
+        return path, total_distance
+    def find_nearest_neighbor(self, city, visited):
+        min_distance = sys.maxsize
+        nearest_city = None
+        for neighbor in range(self.num_cities):
+            if not visited[neighbor] and neighbor != city:
+                if self.distances[city][neighbor] < min_distance:
+                    min_distance = self.distances[city][neighbor]
+                    nearest_city = neighbor
+        return nearest_city
+num_cities = 4
+distances = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+tsp = TSP(num_cities, distances)
+path, total_distance = tsp.nearest_neighbor()
+
+print("Nearest Neighbor Path:", path)
+print("Total Distance:", total_distance)
