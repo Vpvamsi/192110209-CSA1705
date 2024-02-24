@@ -1,0 +1,47 @@
+class MapColoringCSP:
+    def __init__(self, variables, domains, neighbors):
+        self.variables = variables  # List of variable names (regions)
+        self.domains = domains      # Dictionary mapping variables to domain values (colors)
+        self.neighbors = neighbors  # Dictionary mapping variables to lists of neighboring variables
+    def is_consistent(self, var, assignment, color):
+        for neighbor in self.neighbors[var]:
+            if neighbor in assignment and assignment[neighbor] == color:
+                return False
+        return True
+    def backtracking_search(self, assignment={}):
+        if len(assignment) == len(self.variables):
+            return assignment  # All variables are assigned, return solution
+        var = self.select_unassigned_variable(assignment)
+        for value in self.order_domain_values(var, assignment):
+            if self.is_consistent(var, assignment, value):
+                assignment[var] = value
+                result = self.backtracking_search(assignment)
+                if result is not None:
+                    return result
+                del assignment[var]  # Backtrack
+        return None  # No solution found
+    def select_unassigned_variable(self, assignment):
+        for var in self.variables:
+            if var not in assignment:
+                return var
+    def order_domain_values(self, var, assignment):
+        return self.domains[var]
+variables = ['WA', 'NT', 'SA', 'Q', 'NSW', 'V', 'T']
+domains = {var: ['red', 'green', 'blue'] for var in variables}
+neighbors = {
+    'WA': ['NT', 'SA'],
+    'NT': ['WA', 'SA', 'Q'],
+    'SA': ['WA', 'NT', 'Q', 'NSW', 'V'],
+    'Q': ['NT', 'SA', 'NSW'],
+    'NSW': ['SA', 'Q', 'V'],
+    'V': ['SA', 'NSW'],
+    'T': []
+}
+map_coloring_csp = MapColoringCSP(variables, domains, neighbors)
+solution = map_coloring_csp.backtracking_search()
+if solution:
+    print("Map coloring solution found:")
+    for var, color in solution.items():
+        print(f"{var}: {color}")
+else:
+    print("No solution found for the given map coloring problem.")
