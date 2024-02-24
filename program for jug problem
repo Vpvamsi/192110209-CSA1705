@@ -1,0 +1,37 @@
+from collections import deque
+def is_valid_state(state, jug1_capacity, jug2_capacity):
+    jug1, jug2 = state
+    return 0 <= jug1 <= jug1_capacity and 0 <= jug2 <= jug2_capacity
+def water_jug_problem(start_state, target, jug1_capacity, jug2_capacity):
+    visited = set()
+    queue = deque([(start_state, [])])
+ while queue:
+        current_state, path = queue.popleft()
+        if current_state == target:
+            return path + [target]
+        visited.add(current_state)
+        jug1, jug2 = current_state
+        actions = [
+            ("fill jug1", (jug1_capacity, jug2)),
+            ("fill jug2", (jug1, jug2_capacity)),
+            ("empty jug1", (0, jug2)),
+            ("empty jug2", (jug1, 0)),
+            ("pour jug1 to jug2", (max(0, jug1 - (jug2_capacity - jug2)), min(jug2 + jug1, jug2_capacity))),
+            ("pour jug2 to jug1", (min(jug1 + jug2, jug1_capacity), max(0, jug2 - (jug1_capacity - jug1))))
+        ]
+  for action, (next_jug1, next_jug2) in actions:
+            next_state = (next_jug1, next_jug2)
+            if next_state not in visited and is_valid_state(next_state, jug1_capacity, jug2_capacity):
+                queue.append((next_state, path + [action]))
+    return None  
+start_state = (0, 0)
+target = (2, 0)  # Goal is to have 2 units of water in jug1
+jug1_capacity = 4
+jug2_capacity = 3
+solution = water_jug_problem(start_state, target, jug1_capacity, jug2_capacity)
+if solution:
+    print("Solution found:")
+    for step, action in enumerate(solution):
+        print(f"Step {step + 1}: {action}")
+else:
+    print("No solution exists for the given problem.")
