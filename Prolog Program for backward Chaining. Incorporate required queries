@@ -1,0 +1,15 @@
+% Define facts and rules
+% Fact: Birds have wings
+has_wings(bird).
+
+% Rule: If an animal has wings, it can fly
+can_fly(X) :-
+    has_wings(X).
+
+% Backward chaining
+backward_chaining(Goal) :-
+    can_fly(Goal).
+
+% Example usage:
+% To query whether a specific animal can fly using backward chaining:
+% ?- backward_chaining(animal_name).
