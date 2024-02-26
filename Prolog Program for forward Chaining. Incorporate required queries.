@@ -1,0 +1,22 @@
+% Define facts and rules
+% Fact: Birds can fly
+can_fly(bird).
+
+% Rule: If an animal has wings, it can fly
+can_fly(X) :-
+    has_wings(X).
+
+% Rule: Birds have wings
+has_wings(bird).
+
+% Forward chaining
+forward_chaining :-
+    repeat,
+    (   (can_fly(X), \+ can_fly(X)) -> (assert(can_fly(X)), fail) ; true).
+
+% Example usage:
+% To start forward chaining:
+% ?- forward_chaining.
+
+% To query whether a specific animal can fly after forward chaining:
+% ?- can_fly(animal_name).
