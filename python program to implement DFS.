@@ -22,3 +22,8 @@ g.add_edge('B', 'E')
 g.add_edge('C', 'F')
 print("DFS traversal starting from node 'A':")
 g.dfs('A')
+
+
+OUTPUT:
+DFS traversal starting from node 'A':
+A B D E C F 
