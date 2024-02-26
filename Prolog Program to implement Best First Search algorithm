@@ -1,0 +1,40 @@
+% Example graph represented as adjacency list
+graph(a, [b, c]).
+graph(b, [d, e]).
+graph(c, [f]).
+graph(d, []).
+graph(e, [f]).
+graph(f, []).
+
+% Heuristic values for each node
+heuristic(a, 4).
+heuristic(b, 2).
+heuristic(c, 5).
+heuristic(d, 3).
+heuristic(e, 2).
+heuristic(f, 1).
+
+% Best-First Search algorithm
+best_first_search(Start, Goal) :-
+    heuristic(Start, H),
+    best_first_search_util([node(Start, H)], Goal, []).
+
+% Utility predicate for Best-First Search
+best_first_search_util([node(Goal, _)|_], Goal, _) :-
+    write('Goal reached: '), write(Goal), nl.
+best_first_search_util([node(Current, _)|Rest], Goal, Visited) :-
+    write('Visiting node: '), write(Current), nl,
+    findall(node(Next, H), (graph(Current, Neighbors), member(Next, Neighbors), \+ member(Next, Visited), heuristic(Next, H)), NextNodes),
+    append(Rest, NextNodes, NewQueue),
+    sort_queue(NewQueue, SortedQueue),
+    best_first_search_util(SortedQueue, Goal, [Current|Visited]).
+
+% Utility predicate to sort the queue based on heuristic values
+sort_queue(Queue, Sorted) :-
+    predsort(compare_heuristic, Queue, Sorted).
+
+compare_heuristic(Order, node(_, H1), node(_, H2)) :-
+    compare(Order, H1, H2).
+
+% Example usage:
+% ?- best_first_search(a, f).
