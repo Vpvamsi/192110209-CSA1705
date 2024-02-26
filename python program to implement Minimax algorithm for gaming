@@ -98,3 +98,43 @@ if __name__ == "__main__":
         print("Player wins!")
     else:
         print("It's a draw!")
+
+OUTPUT:
+
+Initial board:
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+[' ', ' ', ' ']
+Enter row (0-2): 1
+Enter column (0-2): 2
+Computer's turn:
+Updated board:
+['X', ' ', ' ']
+[' ', ' ', 'O']
+[' ', ' ', ' ']
+Enter row (0-2): 0
+Enter column (0-2): 1
+Computer's turn:
+Updated board:
+['X', 'O', 'X']
+[' ', ' ', 'O']
+[' ', ' ', ' ']
+Enter row (0-2): 2
+Enter column (0-2): 1
+Computer's turn:
+Updated board:
+['X', 'O', 'X']
+['X', ' ', 'O']
+[' ', 'O', ' ']
+Enter row (0-2): 1
+Enter column (0-2): 0
+Invalid move! Try again.
+Enter row (0-2): 2
+Enter column (0-2): 2
+Computer's turn:
+Updated board:
+['X', 'O', 'X']
+['X', ' ', 'O']
+['X', 'O', 'O']
+Computer wins!
+> 
