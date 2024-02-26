@@ -1,0 +1,12 @@
+% Define fruits and their colors
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(grape, purple).
+fruit(orange, orange).
+
+% Predicate to find the color of a fruit
+fruit_color(Fruit, Color) :-
+    fruit(Fruit, Color).
+
+% Example query:
+% ?- fruit_color(apple, Color).
