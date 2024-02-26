@@ -5,3 +5,7 @@ sum_integers(N, Sum) :-
     N1 is N - 1,
     sum_integers(N1, Sum1),
     Sum is N + Sum1.
+
+OUTPUT:
+?- sum_integers(5, Sum).
+sum=15
