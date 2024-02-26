@@ -1,0 +1,49 @@
+% Facts representing planets and their properties
+planet(mercury, 0.330, 4879).
+planet(venus, 4.87, 12104).
+planet(earth, 5.97, 12756).
+planet(mars, 0.642, 6792).
+planet(jupiter, 1898, 142984).
+planet(saturn, 568, 120536).
+planet(uranus, 86.8, 51118).
+planet(neptune, 102, 49528).
+
+% Facts representing planet moons
+moon(earth, moon).
+moon(mars, phobos).
+moon(mars, deimos).
+moon(jupiter, io).
+moon(jupiter, europa).
+moon(jupiter, ganymede).
+moon(jupiter, callisto).
+moon(saturn, titan).
+moon(saturn, enceladus).
+moon(saturn, mimas).
+moon(uranus, miranda).
+moon(uranus, ariel).
+moon(uranus, umbriel).
+moon(neptune, triton).
+
+% Predicate to check if a planet has moons
+has_moons(Planet) :-
+    moon(Planet, _).
+
+% Predicate to retrieve the mass of a planet
+mass(Planet, Mass) :-
+    planet(Planet, Mass, _).
+
+% Predicate to retrieve the diameter of a planet
+diameter(Planet, Diameter) :-
+    planet(Planet, _, Diameter).
+
+
+
+OUTPUT:
+?- mass(earth, Mass).
+Mass = 5.97.
+
+?- diameter(jupiter, Diameter).
+Diameter = 142984.
+
+?- has_moons(earth).
+true.
