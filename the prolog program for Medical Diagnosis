@@ -1,0 +1,20 @@
+% Define symptoms and corresponding diseases
+symptom(fever, flu).
+symptom(cough, flu).
+symptom(sore_throat, flu).
+symptom(runny_nose, cold).
+symptom(cough, cold).
+symptom(headache, cold).
+symptom(rash, measles).
+symptom(fever, measles).
+symptom(cough, bronchitis).
+symptom(shortness_of_breath, bronchitis).
+
+% Predicate to diagnose a disease based on symptoms
+diagnose(Disease, Symptoms) :-
+    findall(D, (member(Symptom, Symptoms), symptom(Symptom, D)), Diseases),
+    list_to_set(Diseases, UniqueDiseases),
+    member(Disease, UniqueDiseases).
+
+% Example usage:
+% ?- diagnose(Disease, [fever, cough]).
