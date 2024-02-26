@@ -1,0 +1,12 @@
+% Facts representing diet suggestions based on diseases
+diet(sugar_diabetes, [avoid(sweets), limit(carbohydrates), include(vegetables), limit(fruits), limit(sugary beverages)]).
+diet(hypertension, [limit(sodium), include(fruits), include(vegetables), limit(alcohol), limit(caffeine)]).
+diet(high_cholesterol, [limit(saturated_fats), include(fiber), limit(trans_fats), include(omega_3_fatty_acids), limit(red_meat)]).
+
+% Predicate to suggest diet based on disease
+suggest_diet(Disease, Diet) :-
+    diet(Disease, Diet),
+    format('Suggested diet for ~w: ~w', [Disease, Diet]).
+
+% Example usage:
+?- suggest_diet(sugar_diabetes, Diet).
