@@ -1,0 +1,15 @@
+teaches(teacher1, math, 'MATH101').
+teaches(teacher2, physics, 'PHYS101').
+teaches(teacher3, chemistry, 'CHEM101').
+enrolled(john, 'MATH101').
+enrolled(john, 'PHYS101').
+enrolled(amy, 'CHEM101').
+enrolled(bob, 'MATH101').
+enrolled(bob, 'CHEM101').
+enrolled(susan, 'PHYS101').
+
+teacher_for_subject(Subject, Teacher) :-
+    teaches(Teacher, Subject, _).
+
+students_for_subject(Subject, Students) :-
+    findall(Student, enrolled(Student, Subject), Students).
