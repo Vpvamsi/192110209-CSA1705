@@ -13,3 +13,9 @@ teacher_for_subject(Subject, Teacher) :-
 
 students_for_subject(Subject, Students) :-
     findall(Student, enrolled(Student, Subject), Students).
+
+OUTPUT:
+?- teacher_for_subject(math, Teacher).
+Teacher = teacher1.
+?- students_for_subject('CHEM101', Students).
+Students = [amy, bob].
