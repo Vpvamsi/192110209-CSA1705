@@ -1,0 +1,34 @@
+% Initial state: monkey is at the door, chair is in the room, banana is hanging from the ceiling, and the monkey is not holding the banana.
+at(door, s0).
+at(chair, s0).
+at(banana, ceiling, s0).
+holding(nothing, s0).
+
+% Define actions that the monkey can take
+% Action: walk from the door to the chair
+action(walk_to_chair).
+% Action: climb the chair to reach the banana
+action(climb_chair).
+% Action: take the banana
+action(take_banana).
+
+% Define successor state axioms for actions
+% Monkey can walk to the chair from the door
+at(chair, Result, do(walk_to_chair, S)) :- at(door, S), Result = s1.
+% Monkey can climb the chair if the chair is in the room
+holding(nothing, Result, do(climb_chair, S)) :- at(chair, S), Result = s2.
+% Monkey can hold the banana after climbing the chair
+holding(banana, Result, do(take_banana, S)) :- at(banana, ceiling, S), holding(nothing, S), Result = s3.
+
+% Define goal state
+goal_state(holding(banana, _)).
+
+% Define the monkey banana problem solving predicate
+solve(S) :- goal_state(State), reachable(State, S).
+
+% Define reachable predicate to find a sequence of actions leading to the goal state
+reachable(S, S) :- goal_state(S).
+reachable(State, Result) :- action(Action), at(_, State), holding(_, State), do(Action, State, NextState), reachable(NextState, Result).
+
+% Example query to solve the problem
+% ?- solve(S).
