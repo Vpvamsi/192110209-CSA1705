@@ -5,3 +5,7 @@ dob(susan, date(1980, 7, 12)).
 
 date_of_birth(Person, DateOfBirth) :-
     dob(Person, DateOfBirth).
+
+OUTPUT:
+?- date_of_birth(susan, DateOfBirth).
+DateOfBirth = date(1980, 7, 12).
