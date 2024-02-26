@@ -1,0 +1,27 @@
+% Facts representing parent-child relationships
+parent(john, mary).
+parent(john, lisa).
+parent(lisa, anne).
+parent(lisa, peter).
+parent(peter, jenny).
+parent(peter, tom).
+parent(peter, sue).
+parent(sue, emily).
+
+% Rules to define ancestor relationships
+ancestor(X, Y) :-
+    parent(X, Y).
+ancestor(X, Y) :-
+    parent(X, Z),
+    ancestor(Z, Y).
+
+% Rules to define sibling relationships
+sibling(X, Y) :-
+    parent(Z, X),
+    parent(Z, Y),
+    X \= Y.
+
+% Rules to define grandparent relationships
+grandparent(X, Y) :-
+    parent(X, Z),
+    parent(Z, Y).
