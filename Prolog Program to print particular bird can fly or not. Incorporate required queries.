@@ -1,0 +1,30 @@
+bird(sparrow).
+bird(eagle).
+bird(penguin).
+
+can_fly(sparrow).
+can_fly(eagle).
+cannot_fly(penguin).
+
+fly_or_not(Bird) :-
+    (can_fly(Bird) -> 
+        format('~w can fly.~n', [Bird])
+    ; 
+        format('~w cannot fly.~n', [Bird])
+    ).
+
+    
+ example:
+ ?- fly_or_not(sparrow).
+sorrow can fly.
+true.
+
+?- fly_or_not(eagle).
+eagle can fly.
+true.
+
+?- fly_or_not(penguin).
+penguin cannot fly.
+true.
+
+ 
